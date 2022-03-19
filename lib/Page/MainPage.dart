@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:vim_shop/Controller/Popular_product_controller.dart';
+import 'package:vim_shop/Controller/Recommended_product_Comtroller.dart';
+// import 'package:get/get.dart';
+import 'package:vim_shop/Page/PageDetails.dart';
 import 'package:vim_shop/Page/Page_Body.dart';
 import 'package:vim_shop/Weidgets/CustomText.dart';
-import 'colors.dart';
-import 'Icon&TextWidget.dart';
-// import 'page_Body.dart';
+import '../Weidgets/colors.dart';
 import 'Page_Body.dart';
+import 'PageDetails.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -17,8 +21,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    Get.find<PopularProductController>().getPopularProductList();
+    Get.find<RecommendedProductController>().getRecommendedProductList();
 
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SafeArea(
@@ -54,7 +60,7 @@ class _MyAppState extends State<MyApp> {
                             color: AppColor.MainColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: IconButton(
-                          onPressed: null,
+                          onPressed:null,
                           icon: Icon(
                             Icons.search,
                             color: Colors.white,
@@ -66,7 +72,8 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             // Container( decoration: BoxDecoration(color: Colors.deepOrangeAccent),height: 200,)
-            PageBody(),
+            Expanded(child: SingleChildScrollView(child: PageBody())),
+
 
           ],
         )),
