@@ -1,2 +1,4 @@
 # VimShop
-A flutter Shopping Application
+A Shopping Application
+flutter Application
+
