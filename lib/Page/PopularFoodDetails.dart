@@ -1,10 +1,16 @@
 // import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 
-
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:vim_shop/Controller/Cart_Controller.dart';
+import 'package:vim_shop/Page/MainPage.dart';
+import 'package:vim_shop/Page/Page_Body.dart';
 import 'package:vim_shop/Weidgets/AppIcon.dart';
+import 'package:vim_shop/Weidgets/Constants.dart';
 import 'package:vim_shop/Weidgets/Dimensions.dart';
+import 'package:vim_shop/Weidgets/Route_helper.dart';
+import '../Controller/Popular_product_controller.dart';
 import '../Weidgets/CustomText.dart';
 import '../Weidgets/Dimensions.dart';
 import '../Weidgets/AppIcon.dart';
@@ -12,19 +18,24 @@ import 'package:get/get.dart';
 import 'package:expandable_text/expandable_text.dart';
 import '../Weidgets/Icon&TextWidget.dart';
 import '../Weidgets/colors.dart';
+import 'RecomendedFoodDetails.dart';
 
-class PageDatails extends StatelessWidget {
-  const PageDatails({Key? key}) : super(key: key);
+class PopularFoodDetails extends StatelessWidget {
+   int PageId;
+   PopularFoodDetails({Key? key,required this.PageId} ) : super(key: key);
 
 
   @override
   Widget build(BuildContext context) {
+    var Product=Get.find<PopularProductController>().PopulatProductList[PageId];
+    Get.find<PopularProductController>().InitProduct(Product,Get.find<CartController>()) ;
+
     Size size = MediaQuery.of(context).size;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        bottomNavigationBar: Container(
+        bottomNavigationBar: GetBuilder<PopularProductController>(builder: (PopularProduct){return Container(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -43,39 +54,55 @@ class PageDatails extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    BigText(
-                        TextColor: Colors.black45,
-                        text: "+",
-                        size: size.width * 0.08),
-                    BigText(
-                        TextColor: Colors.black45,
-                        text: "0",
-                        size: size.width * 0.08),
-                    BigText(
-                        TextColor: Colors.black45,
-                        text: "-",
-                        size: size.width * 0.08),
+                    GestureDetector( onTap:(){   PopularProduct.InCartItem>=1? PopularProduct.setQuantity(false) :PopularProduct.Quantity==1; },
+                     child : BigText(
+                          TextColor: Colors.black45,
+                          text: "-",
+                          size: size.width * 0.08),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: BigText(
+                          TextColor: Colors.black45,
+                          text: "${PopularProduct.InCartItem}",
+                          size: size.width * 0.08),
+                    ),
+                    GestureDetector( onTap: (){
+                   PopularProduct.InCartItem<=9?   PopularProduct.setQuantity(true): Get.snackbar("Max Quantity", "You can Add only 10 same Food at a time",backgroundColor: AppColor.MainColor);
+                    },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: BigText(
+                            TextColor: Colors.black45,
+                            text: "+",
+                            size: size.width * 0.08),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              Container(
-                height: size.height / 15,
-                width: size.width / 3,
-                decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          offset: Offset(0, 1),
-                          blurRadius: 2)
-                    ],
-                    color: AppColor.MainColor,
-                    borderRadius: BorderRadius.circular(30)),
-                child: Center(
-                    child: BigText(
-                  TextColor: Colors.white,
-                  size: size.width / 20,
-                  text: 'Add to Cart',
-                )),
+              GestureDetector(onTap: (){
+                PopularProduct.AddItem(Product);
+                },
+                child: Container(
+                  height: size.height / 15,
+                  width: size.width / 3,
+                  decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            offset: Offset(0, 1),
+                            blurRadius: 2)
+                      ],
+                      color: AppColor.MainColor,
+                      borderRadius: BorderRadius.circular(30)),
+                  child: Center(
+                      child: BigText(
+                        TextColor: Colors.white,
+                        size: size.width / 20,
+                        text: 'Add to Cart',
+                      )),
+                ),
               ),
             ],
           ),
@@ -87,7 +114,7 @@ class PageDatails extends StatelessWidget {
               ],
               color: Colors.grey.shade100,
               borderRadius: BorderRadius.circular(30)),
-        ),
+        );}),
         body: Stack(
           children: [
             Positioned(
@@ -99,7 +126,7 @@ class PageDatails extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: AssetImage('assets/image/food12.png'))),
+                        image: NetworkImage(AppConstants.APP_base_URL+"/uploads/"+Product.img))),
               ),
             ),
             Positioned(
@@ -109,18 +136,31 @@ class PageDatails extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    AppIcon(
-                      icon: Icons.arrow_back,
-                      Backgroundcolor: Colors.black,
-                      size: 40,
-                      iconcolor: Colors.white,
+                    GestureDetector(onTap: (){Get.toNamed(RouteHelper.initial);},
+                      child: AppIcon(
+                        icon: Icons.arrow_back,
+                        Backgroundcolor: Colors.black,
+                        size: Dimension.hight10*3.5,
+                        iconcolor: Colors.white,
+                      ),
                     ),
-                    AppIcon(
-                      icon: Icons.shopping_cart_checkout,
-                      Backgroundcolor: Colors.black,
-                      size: 40,
-                      iconcolor: Colors.white,
-                    )
+                   Get.find<PopularProductController>().TotalItem>=1?  Badge(badgeContent: Padding(
+                     padding: const EdgeInsets.all(1),
+                     child: Text("${Get.find<PopularProductController>().TotalItem.toString()} ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18),),
+                   ),badgeColor: AppColor.MainColor,
+                     child: AppIcon(
+                       icon: Icons.shopping_cart_checkout,
+                       Backgroundcolor: Colors.black,
+                       size: Dimension.hight10*3.5,
+                       iconcolor: Colors.white,
+                     ),
+                   ):
+                   AppIcon(
+                     icon: Icons.shopping_cart_checkout,
+                     Backgroundcolor: Colors.black,
+                     size: Dimension.hight10*3.5,
+                     iconcolor: Colors.white,
+                   ),
                   ],
                 )),
             Positioned(
@@ -149,7 +189,7 @@ class PageDatails extends StatelessWidget {
                             children: [
                               BigText(
                                   TextColor: Colors.black45,
-                                  text: 'Chiniese Side ',
+                                  text: Product.name!,
                                   size: size.width * 0.05),
                               SizedBox(
                                 height: 10,
@@ -158,19 +198,17 @@ class PageDatails extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Wrap(
-                                      children: List.generate(
-                                          5,
-                                          (index) => Icon(
-                                                Icons.star,
-                                                color: AppColor.MainColor,
-                                                size: size.width * 0.04,
-                                              ))),
+                                      children: List.generate(Product.stars , (index) => Icon(
+                                            Icons.star,
+                                            color: AppColor.MainColor,
+                                            size: size.width * 0.04,
+                                          ))),
                                   SizedBox(
                                     width: 10,
                                   ),
                                   SmalText(
                                       TextColor: Colors.black26,
-                                      text: '4.5',
+                                      text: Product.stars.toString(),
                                       size: size.width * 0.03),
                                   SizedBox(
                                     width: 10,
@@ -186,7 +224,7 @@ class PageDatails extends StatelessWidget {
                               ),
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   IconAndTextWeidget(
                                       icon: Icons.circle_sharp,
@@ -225,9 +263,9 @@ class PageDatails extends StatelessWidget {
                               size: size.width * 0.06),
                           Expanded(
                             child: SingleChildScrollView(
-                              child: ExpandableText(
-                                  "text and tapping on it opens the user profile. The text is truncated after bbnmbbnmbbbnmbbtwo lines and can be expanded by tapping on the link show more t and tapping on it opens the user profile. The text is truncated after bbnmbbnmbbbnmbbtwo lines and can be expanded by tapping on the link show more at the end or thet and tapping on it opens the user profile. The text is truncated after bbnmbbnmbbbnmbbtwo lines and can be expanded by tapping on the link show more at the end or thet and tapping on it opens the user profile. The text is truncated after bbnmbbnmbbbnmbbtwo lines and can be expanded by tapping on the link show more at the end or thet and tapping on it opens the user profile. The text is truncated after bbnmbbnmbbbnmbbtwo lines and can be expanded by tapping on the link show more at the end or theat the end or the text itself. After the text             The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorumby Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackhamwas expanded it cannot be collapsed again as no collapseText was provid",
-                                  expandText: " \n ...show more  ",linkColor: AppColor.MainColor,maxLines: 5,animation: true,collapseOnTextTap: true, style: TextStyle(
+                              child: ExpandableText(Product.description
+                                ,
+                                expandText: " \n ...show more  ",linkColor: AppColor.MainColor,maxLines: 5,animation: true,collapseOnTextTap: true, style: TextStyle(
                                   fontSize: size.width/23,wordSpacing: 3,color: Colors.blueGrey.shade500,height: 2),
                               ),
                             ),

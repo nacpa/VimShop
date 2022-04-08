@@ -1,141 +1,213 @@
+// import 'dart:html';
+
+import 'package:badges/badges.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:vim_shop/Controller/Popular_product_controller.dart';
+import 'package:vim_shop/Controller/Recommended_product_Comtroller.dart';
 import 'package:vim_shop/Weidgets/CustomText.dart';
 import 'package:vim_shop/Weidgets/Dimensions.dart';
 
+import '../Controller/Cart_Controller.dart';
 import '../Weidgets/AppIcon.dart';
+import '../Weidgets/Constants.dart';
 import '../Weidgets/colors.dart';
 
 class RecomendedFoodDetails extends StatelessWidget {
-  const RecomendedFoodDetails({Key? key}) : super(key: key);
+   int PageId;
+   RecomendedFoodDetails({Key? key,required this.PageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var Product=Get.find<RecommendedProductController>().RecommendedProductList[PageId];
+    Get.find<PopularProductController>().InitProduct(Product,Get.find<CartController>()) ;
+
     return
        Scaffold(
       body: CustomScrollView(
         slivers: [
-        SliverAppBar(toolbarHeight: Dimension.Screenheight/10,
+        SliverAppBar(toolbarHeight: Dimension.Screenheight/10,automaticallyImplyLeading: false,
           title:Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            AppIcon(
-              icon: Icons.arrow_back,
-              Backgroundcolor: Colors.black,
-              size: Dimension.hight10*3.5,
-              iconcolor: Colors.white,
+            GestureDetector(onTap: (){Navigator.pop(context);},
+              child: AppIcon(
+                icon: Icons.arrow_back,
+                Backgroundcolor: Colors.black,
+                size: Dimension.hight10*4.2,
+                iconcolor: Colors.white,
+              ),
             ),
+            Get.find<PopularProductController>().TotalItem>=1?  Badge(badgeContent: Padding(
+              padding: const EdgeInsets.all(1),
+              child: Text("${Get.find<PopularProductController>().TotalItem.toString()} ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18),),
+            ),badgeColor: AppColor.MainColor,
+              child: AppIcon(
+                icon: Icons.shopping_cart_checkout,
+                Backgroundcolor: Colors.black,
+                size: Dimension.hight10*3.5,
+                iconcolor: Colors.white,
+              ),
+            ):
             AppIcon(
               icon: Icons.shopping_cart_checkout,
               Backgroundcolor: Colors.black,
               size: Dimension.hight10*3.5,
               iconcolor: Colors.white,
-            )
+            ),
           ],
         ),
           bottom: PreferredSize(preferredSize: Size.fromHeight(20),
         child: Container( height: Dimension.hight10*4,width: double.maxFinite,
           decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(Dimension.hight10*4),topRight: Radius.circular(Dimension.hight10*4))),
-          child: Center(child: BigText(TextColor: Colors.black38, size: Dimension.hight10*3, text: 'Indian side',)),
+          child: Center(child: BigText(TextColor: Colors.black38, size: Dimension.hight10*3, text: Product.name!,)),
         ),),
           expandedHeight: Dimension.Screenheight/2.5,pinned: true,backgroundColor: Colors.yellow.shade100,
-          flexibleSpace: FlexibleSpaceBar( background: Image.asset("assets/image/food11.png",fit: BoxFit.cover,),
+          flexibleSpace: FlexibleSpaceBar( background: Image.network(AppConstants.APP_base_URL+"/uploads/"+Product.img),
 
           ),
         ),
          SliverToBoxAdapter(
           child: Padding(
             padding:  EdgeInsets.all(10),
-            child: ExpandableText(
-              "text and tapping on it opens the user profile. The text is truncated after bbnmbbnmbbbnmbbtwo lines and can be expanded by tapping on the link show more t and tapping on it opens the user profile. The text is truncated after bbnmbbnmbbbnmbbtwo lines and can be expanded by tapping on the link show more at the end or thet and tapping on it opens the user profile. The text is truncated after bbnmbbnmbbbnmbbtwo lines and can be expanded by tapping on the link show more at the end or thet and tapping on it opens the user profile. The text is truncated after bbnmbbnmbbbnmbbtwo lines and can be expanded by tapping on the link show more at the end or thet and tapping on it opens the user profile. The text is truncated after bbnmbbnmbbbnmbbtwo lines and can be expanded by tapping on the link show more at the end or theat the end or the text itself. After the text             The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorumby Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackhamwas expanded it cannot be collapsed again as no collapseText was provid",
+            child: ExpandableText( Product.description,
               expandText: " \n ...show more  ",linkColor: AppColor.MainColor,maxLines: 7,animation: true,collapseOnTextTap: true, style: TextStyle(
                 fontSize: Dimension.ScreenWidth/23,wordSpacing: 3,color: Colors.blueGrey.shade500 ,height: 2),
             )
           ),
         )
-
       ],
-
       ),
-         bottomNavigationBar: Container(
-           child: Row(
-             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+         bottomNavigationBar: GetBuilder<PopularProductController>(builder:(Controller) {return
+           Container(margin: EdgeInsets.only(bottom: 10),
+           child: Column( mainAxisAlignment: MainAxisAlignment.spaceEvenly,
              children: [
-               Container(
-                 height: Dimension.Screenheight / 15,
-                 width: Dimension.ScreenWidth / 3,
-                 decoration: BoxDecoration(
-                     boxShadow: [
-                       BoxShadow(
-                           color: Colors.black12,
-                           offset: Offset(0, 1),
-                           blurRadius: 2)
-                     ],
-                     color: Colors.white,
-                     borderRadius: BorderRadius.circular(30)),
-                 child: Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                   children: [
-                     BigText(
-                         TextColor: Colors.black45,
-                         text: "+",
-                         size: Dimension.ScreenWidth * 0.08),
-                     BigText(
-                         TextColor: Colors.black45,
-                         text: "0",
-                         size: Dimension.ScreenWidth * 0.08),
-                     BigText(
-                         TextColor: Colors.black45,
-                         text: "-",
-                         size: Dimension.ScreenWidth * 0.08),
-                   ],
-                 ),
+
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                 children: [
+                   Container(
+                     height: Dimension.Screenheight / 20,
+                     width: Dimension.ScreenWidth / 2.5,
+                     decoration: BoxDecoration(
+                         boxShadow: [
+                           BoxShadow(
+                               color: Colors.black12,
+                               offset: Offset(0, 1),
+                               blurRadius: 2)
+                         ],
+                         color: Colors.white,
+                         borderRadius: BorderRadius.circular(30)),
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                       children: [
+                         GestureDetector( onTap:(){   Controller.InCartItem>=1? Controller.setQuantity(false) :Controller.Quantity==1; },
+                           child : BigText(
+                               TextColor: Colors.black45,
+                               text: "-",
+                               size: Dimension.ScreenWidth * 0.08),
+                         ),
+                         BigText(
+                             TextColor: Colors.black45,
+                             text: "${Controller.Quantity}",
+                             size: Dimension.ScreenWidth * 0.06),
+                         GestureDetector( onTap: (){
+                           Controller.InCartItem<=9?   Controller.setQuantity(true): Get.snackbar("Max Quantity", "You can Add only 10 same Food at a time",backgroundColor: AppColor.MainColor);
+                         },
+                           child: Padding(
+                             padding: const EdgeInsets.all(8.0),
+                             child: BigText(
+                                 TextColor: Colors.black45,
+                                 text: "+",
+                                 size: Dimension.ScreenWidth * 0.08),
+                           ),
+                         ),
+                       ],
+                     ),
+                   ),
+                   GestureDetector(onTap: (){Controller.AddItem(Product);},
+                     child: Container(
+                       height: Dimension.Screenheight / 20,
+                       width: Dimension.ScreenWidth / 2.5,
+                       decoration: BoxDecoration(
+                           boxShadow: [
+                             BoxShadow(
+                                 color: Colors.black12,
+                                 offset: Offset(0, 1),
+                                 blurRadius: 2)
+                           ],
+                           color: AppColor.MainColor,
+                           borderRadius: BorderRadius.circular(30)),
+                       child: Center(
+                           child: BigText(
+                             TextColor: Colors.white,
+                             size: Dimension.ScreenWidth / 20,
+                             text: 'Add to Cart',
+                           )),
+                     ),
+                   ),
+                 ],
                ),
-               Container(
-                 height: Dimension.Screenheight / 15,
-                 width: Dimension.Screenheight / 15,
-                 decoration: BoxDecoration(
-                     boxShadow: [
-                       BoxShadow(
-                           color: Colors.black12,
-                           offset: Offset(0, 1),
-                           blurRadius: 2)
-                     ],
-                     color: Colors.white,
-                     borderRadius: BorderRadius.circular(30)),
-                 child: Icon(Icons.favorite,color: Colors.red.shade700,)
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                 children: [
+
+
+                   Container(
+                     height: Dimension.Screenheight / 12,
+                     width: Dimension.ScreenWidth*0.95,
+                     decoration: BoxDecoration(
+                         boxShadow: [
+                           BoxShadow(
+                               color: Colors.black12,
+                               offset: Offset(0, 1),
+                               blurRadius: 2)
+                         ],
+                         color: Colors.deepOrange.shade500,
+                         borderRadius: BorderRadius.circular(10)),
+                     child: Center(
+                         child:Padding(
+                           padding: const EdgeInsets.all(8.0),
+                           child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             children: [
+                               Column(crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.center,
+                                 children: [ SmalText(TextColor: Colors.white, text: "${Controller.Quantity} Items", size: 15),BigText(
+                                   TextColor: Colors.white,
+                                   size: Dimension.ScreenWidth / 25,
+                                   text: '₹ ${Controller.Quantity*50} plus Taxes',
+                                 ),],),
+                               Container(
+                                   height: Dimension.Screenheight / 15,
+                                   width: Dimension.Screenheight / 15,
+                                   decoration: BoxDecoration(
+                                       boxShadow: [
+                                         BoxShadow(
+                                             color: Colors.black12,
+                                             offset: Offset(0, 1),
+                                             blurRadius: 2)
+                                       ],
+                                       color: Colors.white,
+                                       borderRadius: BorderRadius.circular(Dimension.Screenheight / 15,)),
+                                   child: Icon(Icons.favorite,color: Colors.red.shade700,)
+                               ),
+                             ],),
+                         )),
+                   ),
+                 ],
                ),
-               Container(
-                 height: Dimension.Screenheight / 15,
-                 width: Dimension.ScreenWidth / 3,
-                 decoration: BoxDecoration(
-                     boxShadow: [
-                       BoxShadow(
-                           color: Colors.black12,
-                           offset: Offset(0, 1),
-                           blurRadius: 2)
-                     ],
-                     color: AppColor.MainColor,
-                     borderRadius: BorderRadius.circular(30)),
-                 child: Center(
-                     child: BigText(
-                       TextColor: Colors.white,
-                       size: Dimension.ScreenWidth / 20,
-                       text: 'Add to Cart',
-                     )),
-               ),
-             ],
-           ),
-           height: Dimension.Screenheight / 8,
+             ],),
+           height: Dimension.Screenheight / 5,
            decoration: BoxDecoration(
                boxShadow: [
                  // BoxShadow(
                  //     color: Colors.black45, offset: Offset(0, 3), blurRadius: 10)
                ],
-               color: Colors.blueGrey.shade200,
-               borderRadius: BorderRadius.circular(30)),
-         ),
+               color: Colors.blueGrey.shade100,
+               borderRadius: BorderRadius.only(topRight: Radius.circular(50),topLeft: Radius.circular(50))),
+         );})
 
     );
   }

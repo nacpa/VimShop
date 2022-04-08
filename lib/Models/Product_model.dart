@@ -38,8 +38,7 @@ class Product {
   }
 }
 
-class _totalSize {
-}
+
 
 class Products_Models {
   int? id;

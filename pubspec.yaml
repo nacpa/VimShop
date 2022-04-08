@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   dots_indicator: ^2.1.0
+  badges: ^2.0.2
   get: ^4.1.4
   expandable_text: ^2.2.0
   flutter:

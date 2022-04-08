@@ -4,12 +4,11 @@ import 'package:get/get.dart';
 import 'package:vim_shop/Controller/Popular_product_controller.dart';
 import 'package:vim_shop/Controller/Recommended_product_Comtroller.dart';
 // import 'package:get/get.dart';
-import 'package:vim_shop/Page/PageDetails.dart';
 import 'package:vim_shop/Page/Page_Body.dart';
 import 'package:vim_shop/Weidgets/CustomText.dart';
+import 'package:vim_shop/Weidgets/Route_helper.dart';
 import '../Weidgets/colors.dart';
 import 'Page_Body.dart';
-import 'PageDetails.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -24,14 +23,14 @@ class _MyAppState extends State<MyApp> {
     Get.find<PopularProductController>().getPopularProductList();
     Get.find<RecommendedProductController>().getRecommendedProductList();
 
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return
+
+       Scaffold(
         body: SafeArea(
             child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(5.0),
+              padding: EdgeInsets.all(5.0),
               child: Container(
                 margin: EdgeInsets.only(left: 5, right: 5, top: 8),
                 child: Row(
@@ -49,7 +48,7 @@ class _MyAppState extends State<MyApp> {
                                 TextColor: Colors.black26,
                                 text: 'city',
                                 size: 16),
-                            GestureDetector(onTap: null, child: Icon(Icons.arrow_drop_down)),
+                            Icon(Icons.arrow_drop_down),
                           ],
                         )
 
@@ -77,7 +76,7 @@ class _MyAppState extends State<MyApp> {
 
           ],
         )),
-      ),
-    );
+      );
+
   }
 }
