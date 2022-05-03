@@ -5,7 +5,6 @@ class ApiClient extends GetConnect implements GetxService{
  late String token =AppConstants.Token;
 final String appbaseUrl;
 late Map<String,String> _mainHeaders;
-
   ApiClient( {required this.appbaseUrl } ){
     baseUrl=appbaseUrl;                                    //Getx pakaage management system
     timeout=Duration(seconds: 30);

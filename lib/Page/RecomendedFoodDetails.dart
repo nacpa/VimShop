@@ -8,8 +8,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:vim_shop/Controller/Popular_product_controller.dart';
 import 'package:vim_shop/Controller/Recommended_product_Comtroller.dart';
+import 'package:vim_shop/Page/Cart.dart';
+import 'package:vim_shop/Page/MainPage.dart';
 import 'package:vim_shop/Weidgets/CustomText.dart';
 import 'package:vim_shop/Weidgets/Dimensions.dart';
+import 'package:vim_shop/Weidgets/Route_helper.dart';
 
 import '../Controller/Cart_Controller.dart';
 import '../Weidgets/AppIcon.dart';
@@ -33,7 +36,7 @@ class RecomendedFoodDetails extends StatelessWidget {
           title:Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(onTap: (){Navigator.pop(context);},
+            GestureDetector(onTap: (){Get.to(MyApp());},
               child: AppIcon(
                 icon: Icons.arrow_back,
                 Backgroundcolor: Colors.black,
@@ -41,22 +44,26 @@ class RecomendedFoodDetails extends StatelessWidget {
                 iconcolor: Colors.white,
               ),
             ),
-            Get.find<PopularProductController>().TotalItem>=1?  Badge(badgeContent: Padding(
-              padding: const EdgeInsets.all(1),
-              child: Text("${Get.find<PopularProductController>().TotalItem.toString()} ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18),),
-            ),badgeColor: AppColor.MainColor,
-              child: AppIcon(
+            GestureDetector(onTap: (){
+              Get.toNamed(RouteHelper.getCartPAge());
+            },
+              child: Get.find<PopularProductController>().TotalItem>=1?  Badge(badgeContent: Padding(
+                padding: const EdgeInsets.all(1),
+                child: Text("${Get.find<PopularProductController>().TotalItem.toString()} ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18),),
+              ),badgeColor: AppColor.MainColor,
+                child: AppIcon(
+                  icon: Icons.shopping_cart_checkout,
+                  Backgroundcolor: Colors.black,
+                  size: Dimension.hight10*3.5,
+                  iconcolor: Colors.white,
+                ),
+              ):
+              AppIcon(
                 icon: Icons.shopping_cart_checkout,
                 Backgroundcolor: Colors.black,
                 size: Dimension.hight10*3.5,
                 iconcolor: Colors.white,
               ),
-            ):
-            AppIcon(
-              icon: Icons.shopping_cart_checkout,
-              Backgroundcolor: Colors.black,
-              size: Dimension.hight10*3.5,
-              iconcolor: Colors.white,
             ),
           ],
         ),
@@ -66,7 +73,7 @@ class RecomendedFoodDetails extends StatelessWidget {
           child: Center(child: BigText(TextColor: Colors.black38, size: Dimension.hight10*3, text: Product.name!,)),
         ),),
           expandedHeight: Dimension.Screenheight/2.5,pinned: true,backgroundColor: Colors.yellow.shade100,
-          flexibleSpace: FlexibleSpaceBar( background: Image.network(AppConstants.APP_base_URL+"/uploads/"+Product.img),
+          flexibleSpace: FlexibleSpaceBar( background: Image.network(AppConstants.APP_base_URL+"/uploads/"+Product.img,fit: BoxFit.fill,),
 
           ),
         ),
@@ -112,7 +119,7 @@ class RecomendedFoodDetails extends StatelessWidget {
                          ),
                          BigText(
                              TextColor: Colors.black45,
-                             text: "${Controller.Quantity}",
+                             text: "${Controller.InCartItem}",
                              size: Dimension.ScreenWidth * 0.06),
                          GestureDetector( onTap: (){
                            Controller.InCartItem<=9?   Controller.setQuantity(true): Get.snackbar("Max Quantity", "You can Add only 10 same Food at a time",backgroundColor: AppColor.MainColor);
@@ -128,7 +135,12 @@ class RecomendedFoodDetails extends StatelessWidget {
                        ],
                      ),
                    ),
-                   GestureDetector(onTap: (){Controller.AddItem(Product);},
+                   GestureDetector(onTap: (){Controller.AddItem(Product);
+                   Controller.InCartItem>0?
+                   Get.snackbar("Item Added sucessfully in Cart", "",backgroundColor: Colors.lightGreenAccent.withOpacity(0.5),duration:  Duration(milliseconds: 850),snackStyle: SnackStyle.FLOATING): print("");
+                   },
+
+
                      child: Container(
                        height: Dimension.Screenheight / 20,
                        width: Dimension.ScreenWidth / 2.5,
@@ -174,10 +186,10 @@ class RecomendedFoodDetails extends StatelessWidget {
                            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                              children: [
                                Column(crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.center,
-                                 children: [ SmalText(TextColor: Colors.white, text: "${Controller.Quantity} Items", size: 15),BigText(
+                                 children: [ SmalText(TextColor: Colors.white, text: "${Controller.InCartItem} Items", size: 15),BigText(
                                    TextColor: Colors.white,
                                    size: Dimension.ScreenWidth / 25,
-                                   text: '₹ ${Controller.Quantity*50} plus Taxes',
+                                   text: '₹ ${Controller.InCartItem*50} plus Taxes',
                                  ),],),
                                Container(
                                    height: Dimension.Screenheight / 15,

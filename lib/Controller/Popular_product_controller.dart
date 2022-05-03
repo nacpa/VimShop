@@ -1,9 +1,9 @@
-import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:vim_shop/Controller/Cart_Controller.dart';
 import 'package:vim_shop/Data/Repositories/Popular_product_reppo.dart';
+import 'package:vim_shop/Models/ProductModel.dart';
 import 'package:vim_shop/Models/Product_model.dart';
 import 'package:vim_shop/Weidgets/colors.dart';
 
@@ -37,6 +37,11 @@ class PopularProductController extends GetxController{
    }
 
   }
+
+
+
+
+
 
 void setQuantity(bool isIncrement){
     if(isIncrement){
@@ -75,8 +80,13 @@ void setQuantity(bool isIncrement){
     return _cart.TotalItems;
 
 
-  }
 
+
+
+  }
+List<Cart_Models> get  GetItems{
+    return _cart.Getitems;
+}
 
 
 }

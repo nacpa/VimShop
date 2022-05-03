@@ -97,7 +97,8 @@ late int member=8;
 
                   GestureDetector(onTap: (){
                     Get.toNamed(RouteHelper.getRecommendedProduct(index));},
-                    child: Container(child: Row(
+                    child: Container(
+                      child: Row(
                       children: [
                         // BigText(TextColor: Colors.black12, text: index.toString(), size:20 ),  //index no
                         Padding(
@@ -111,7 +112,7 @@ late int member=8;
                           ),
                         ),
                         Container(
-                          decoration: BoxDecoration(color: Colors.white,boxShadow: [BoxShadow(color: Colors.grey.shade300 ,offset: Offset(0,3),blurRadius:5)], borderRadius: BorderRadius.circular(Dimension.Screenheight/50)),height: Dimension.Screenheight/9,width: Dimension.ScreenWidth*0.55,
+                          decoration: BoxDecoration(gradient: LinearGradient(begin: Alignment.topLeft,end: Alignment.bottomRight,colors: AppColor.Gradient2),boxShadow: [BoxShadow(color: Colors.grey.shade300 ,offset: Offset(0,3),blurRadius:5)], borderRadius: BorderRadius.circular(Dimension.Screenheight/50)),height: Dimension.Screenheight/9,width: Dimension.ScreenWidth*0.55,
                           child: Padding(
                             padding:  EdgeInsets.all(Dimension.Screenheight/100),
                             child: Column(crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -150,7 +151,8 @@ late int member=8;
 
     Size size = MediaQuery.of(context).size;
     return Stack(
-      children: [Align(alignment: Alignment.topCenter,
+      children: [
+        Align(alignment: Alignment.topCenter,
         child: GestureDetector(onTap: (){}
           ,
           child: Container(
@@ -199,14 +201,13 @@ late int member=8;
               ),
 
             ),
-
               height:size.height/7,
               width: size.width*0.7,
               margin: EdgeInsets.all(10),
               decoration: BoxDecoration(
                    boxShadow: [BoxShadow(color: Colors.black12,offset: Offset(0,6),blurRadius: 5,)],
 
-                  color: index.isEven ? Colors.white : Colors.white,
+                  gradient: LinearGradient(begin: Alignment.topLeft,end: Alignment.bottomRight,colors: AppColor.Gradient),
                   borderRadius: BorderRadius.circular(20)),
             ),
           ),

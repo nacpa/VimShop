@@ -12,6 +12,10 @@ class CartController extends GetxController{
   Map<int, Cart_Models> _items={};
 
 
+  //for storage and sharedprefrences
+
+  List<Cart_Models> storageItem=[];
+
   void addItem(Products_Models product , int quantity){
     var TotalQuantity=0;
   if(_items.containsKey(product.id)){
@@ -55,13 +59,11 @@ class CartController extends GetxController{
         );});
     }
   }
+  cartRepo.AddToCartList(Getitems);
 
 update();
 
     }
-
-
-
 
 
     bool ExistInCart(Products_Models product  ){
@@ -87,7 +89,7 @@ update();
     return Quantity;
     }
 
-    int get TotalItems{
+    int get  TotalItems{
     var TotalQuantity=0;
     _items.forEach((key, value) {
       TotalQuantity+=value.Quantity!;
@@ -95,6 +97,35 @@ update();
     return TotalQuantity;
 
     }
+    List<Cart_Models> get Getitems{
+    return _items.entries.map((e) {
+      return e.value;
+    }).toList();
+    }
+
+
+     set SetCart(List<Cart_Models> items ){
+    storageItem=items;
+    // print("Lenghth cart items is ${storageItem.length.toString()}");
+    for(int i =0; i<storageItem.length ;i++){
+      _items.putIfAbsent(storageItem[i].id!, () => storageItem[i]);
+
+    }
+
+  }
+
+
+    List<Cart_Models> getCartData(){
+    SetCart=cartRepo.getcartList();
+    return  storageItem;
+    }
+
+
+    void AddToHistory(){
+    cartRepo.AddCartHistoryList();
+    }
+
+
 
   }
 

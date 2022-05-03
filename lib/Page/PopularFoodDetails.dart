@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:vim_shop/Controller/Cart_Controller.dart';
+import 'package:vim_shop/Page/Cart.dart';
 import 'package:vim_shop/Page/MainPage.dart';
 import 'package:vim_shop/Page/Page_Body.dart';
 import 'package:vim_shop/Weidgets/AppIcon.dart';
@@ -23,7 +24,6 @@ import 'RecomendedFoodDetails.dart';
 class PopularFoodDetails extends StatelessWidget {
    int PageId;
    PopularFoodDetails({Key? key,required this.PageId} ) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -146,23 +146,29 @@ class PopularFoodDetails extends StatelessWidget {
                     ),
                    Get.find<PopularProductController>().TotalItem>=1?  Badge(badgeContent: Padding(
                      padding: const EdgeInsets.all(1),
-                     child: Text("${Get.find<PopularProductController>().TotalItem.toString()} ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18),),
+                     child: Text("${Get.find<PopularProductController>().TotalItem.toString()} ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 15),),
                    ),badgeColor: AppColor.MainColor,
+                     child: GestureDetector(  onTap:(){  Get.toNamed(RouteHelper.CartPage);},
+                       child: AppIcon(
+                         icon: Icons.shopping_cart_checkout,
+                         Backgroundcolor: Colors.black,
+                         size: Dimension.hight10*3.5,
+                         iconcolor: Colors.white,
+                       ),
+                     ),
+                   ):
+                   GestureDetector(  onTap:(){  Get.toNamed(RouteHelper.CartPage);},
                      child: AppIcon(
                        icon: Icons.shopping_cart_checkout,
                        Backgroundcolor: Colors.black,
                        size: Dimension.hight10*3.5,
                        iconcolor: Colors.white,
                      ),
-                   ):
-                   AppIcon(
-                     icon: Icons.shopping_cart_checkout,
-                     Backgroundcolor: Colors.black,
-                     size: Dimension.hight10*3.5,
-                     iconcolor: Colors.white,
                    ),
                   ],
                 )),
+
+
             Positioned(
                 bottom: 0,
                 top: size.height / 2.4,
