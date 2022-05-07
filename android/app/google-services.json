@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "561938570710",
+    "project_id": "vimshop-d7a6f",
+    "storage_bucket": "vimshop-d7a6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:561938570710:android:50e1f5caaa81500f071877",
+        "android_client_info": {
+          "package_name": "com.example.vim_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "561938570710-sj2tffje3g3dd71g5vdbl5ngop8cpegq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_U1BMtgxpKXH8M1UcYyU0hbAyAlHNjJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "561938570710-sj2tffje3g3dd71g5vdbl5ngop8cpegq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

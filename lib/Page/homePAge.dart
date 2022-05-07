@@ -21,12 +21,12 @@ class _homePageState extends State<homePage> {
   int _selectedindex=0;
   List Pages=[
     MyApp(),
-    SignupPage(),
-    SignInPage(),
+    // SignupPage(),
+    // SignInPage(),
     // Container(child: Center(child: Text("nacpa 1")),),
     // SplashScreen(),
-    // Container(child: Center(child: Text("nacpa 2")),),
-    // Container(child: Center(child: Text("nacpa 3")),),
+    Container(child: Center(child: Text("nacpa 2")),),
+    Container(child: Center(child: Text("nacpa 3")),),
     Acount_Page()
 
   ];

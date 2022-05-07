@@ -33,6 +33,11 @@ dependencies:
   badges: ^2.0.2
   get: ^4.1.4
   expandable_text: ^2.2.0
+  firebase_core: ^1.16.0
+  firebase_auth: ^3.3.17
+  google_maps_flutter: ^2.1.4
+  geocoding: ^2.0.4
+  geolocator: ^8.2.0
   flutter:
     sdk: flutter
 

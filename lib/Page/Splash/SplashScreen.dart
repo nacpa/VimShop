@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:vim_shop/Controller/Cart_Controller.dart';
+import 'package:vim_shop/Page/Authentication/Sign_in_Page.dart';
+import 'package:vim_shop/Page/homePAge.dart';
 import 'package:vim_shop/Weidgets/Dimensions.dart';
 import 'package:vim_shop/Weidgets/Route_helper.dart';
 
@@ -41,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     animation =CurvedAnimation(parent: controller, curve: Curves.bounceInOut);
     Timer(
       Duration(seconds: 3),
-        ()=>Get.toNamed(RouteHelper.initial)
+        ()=>Get.to(homePage())
     );
     
   }

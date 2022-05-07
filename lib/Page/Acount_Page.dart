@@ -1,5 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:vim_shop/Page/Address/AddAdressPage.dart';
 import 'package:vim_shop/Weidgets/CustomText.dart';
 import 'package:vim_shop/Weidgets/Dimensions.dart';
 import 'package:vim_shop/Weidgets/colors.dart';
@@ -23,7 +28,12 @@ class Acount_Page extends StatelessWidget {
               InfoContainer(IconId: Icons.person, Info: "NAchiketa Pandey", IconColor: Colors.deepOrange, TEXTColor: Colors.black),
               InfoContainer(IconId: Icons.email, Info: "nacpa360@gmail.com", IconColor: Colors.green, TEXTColor: Colors.black),
               InfoContainer(IconId: Icons.phone_android_outlined, Info: "+917523893279", IconColor: Colors.blueGrey, TEXTColor: Colors.black),
-              InfoContainer(IconId: Icons.location_city, Info: "Select Addres", IconColor: Colors.lightBlueAccent, TEXTColor: Colors.black),
+              GestureDetector(onTap: (){
+                Get.to(Adresspage());
+
+
+              },
+                  child: InfoContainer(IconId: Icons.location_city, Info: "Select Addres", IconColor: Colors.lightBlueAccent, TEXTColor: Colors.black)),
               InfoContainer(IconId: Icons.logout_outlined, Info: "LOGOUT", IconColor: Colors.red, TEXTColor: Colors.black),
             ],),),
           )

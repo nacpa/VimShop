@@ -5,12 +5,14 @@ import 'package:vim_shop/Weidgets/Dimensions.dart';
 class FillContainer extends StatelessWidget {
   FillContainer(
       {Key? key,
+        required this.textController,
         required this.TEXTColor,
         required this.IconColor,
         required this.Info,
         required this.IconId})
       : super(key: key);
   IconData IconId;
+  final TextEditingController textController;
   String Info;
   Color IconColor;
   Color TEXTColor;
@@ -19,7 +21,7 @@ class FillContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         child: TextField(
-            controller: TextEditingController(),
+            controller: textController,
             decoration: InputDecoration(
               prefixIcon: Icon(
                 IconId,
