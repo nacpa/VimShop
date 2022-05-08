@@ -6,6 +6,7 @@ class AppConstants{
   // static const String APP_base_URL= "http://10.0.2.2:8000";
   // static const String APP_base_URL= "localhost:8000";
   static const String APP_popularProducts_URL="/api/v1/products/popular";
+  // static const String APP_popularProducts_URL="/api/v1/products/popular";
   static const String APP_Recommended_Products_URL="/api/v1/products/recommended";
   static const String Token="VimToken";
 
