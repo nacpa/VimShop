@@ -108,7 +108,7 @@ class PopularFoodDetails extends StatelessWidget {
           ),
           height: size.height / 8,
           decoration: BoxDecoration(
-              boxShadow: [
+              boxShadow:[
                 // BoxShadow(
                 //     color: Colors.black45, offset: Offset(0, 3), blurRadius: 10)
               ],
@@ -167,8 +167,6 @@ class PopularFoodDetails extends StatelessWidget {
                    ),
                   ],
                 )),
-
-
             Positioned(
                 bottom: 0,
                 top: size.height / 2.4,

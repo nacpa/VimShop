@@ -19,6 +19,7 @@ import '../Weidgets/AppIcon.dart';
 import '../Weidgets/Constants.dart';
 import '../Weidgets/colors.dart';
 
+
 class RecomendedFoodDetails extends StatelessWidget {
    int PageId;
    RecomendedFoodDetails({Key? key,required this.PageId}) : super(key: key);

@@ -78,7 +78,6 @@ late int member=8;
             Container(margin: EdgeInsets.only(bottom: 3),
                 child: SmalText(TextColor: Colors.black45, text: '.', size: Dimension.Screenheight/38)),
             SizedBox(width: Dimension.Screenheight/81,),
-
             Padding(
               padding: const EdgeInsets.only(bottom: 4),
               child: SmalText(TextColor: Colors.black26, text: 'food Paring', size: Dimension.ScreenWidth*0.03),

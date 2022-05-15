@@ -9,6 +9,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:vim_shop/Page/Splash/SplashScreen.dart';
 import 'package:vim_shop/Weidgets/Route_helper.dart';
 import 'package:vim_shop/Weidgets/colors.dart';
+import 'package:vim_shop/fetch.dart';
 
 class homePage extends StatefulWidget {
   const homePage({Key? key}) : super(key: key);
@@ -25,7 +26,8 @@ class _homePageState extends State<homePage> {
     // SignInPage(),
     // Container(child: Center(child: Text("nacpa 1")),),
     // SplashScreen(),
-    Container(child: Center(child: Text("nacpa 2")),),
+    // Container(child: Center(child: Text("nacpa 2")),),
+    fetchData(),
     Container(child: Center(child: Text("nacpa 3")),),
     Acount_Page()
 
