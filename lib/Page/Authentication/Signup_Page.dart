@@ -6,7 +6,6 @@ import 'package:vim_shop/Weidgets/CustomSnackBar.dart';
 import 'package:vim_shop/Weidgets/Dimensions.dart';
 import 'package:vim_shop/Weidgets/colors.dart';
 
-import '../../Weidgets/CustomText.dart';
 import '../../Weidgets/TextField.dart';
 
 class SignupPage extends StatelessWidget {
@@ -15,9 +14,7 @@ class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List img = ["t.png", "g.png", "f.png"];
-    final _auth=FirebaseAuth.instance;
-    
-    
+    final _auth = FirebaseAuth.instance;
     var PhoneController = TextEditingController();
     var PassWordcontroller = TextEditingController();
     var Emailcontroller = TextEditingController();
@@ -45,12 +42,19 @@ class SignupPage extends StatelessWidget {
         CustomSnackBar(
             "Wrong Email ", "please Fill valid mail", Colors.red, Colors.white);
       } else {
-        _auth.createUserWithEmailAndPassword(email: Email, password: Password).then((value) => Get.to(SignInPage()));
+        _auth
+            .createUserWithEmailAndPassword(email: Email, password: Password)
+            .then((value) {
+          _auth.currentUser?.updateProfile(
+            displayName: Name,
+          );
+          _auth.currentUser?.linkWithPhoneNumber(MobileNo);
 
+          Get.off(SignInPage(), transition: Transition.cupertino);
+        });
 
         CustomSnackBar(
             "Welcome", "Signup Sucessfully", Colors.green, Colors.white);
-
       }
     }
 
@@ -123,15 +127,21 @@ class SignupPage extends StatelessWidget {
                   SizedBox(
                     height: Dimension.hight10,
                   ),
-                  Row(mainAxisAlignment: MainAxisAlignment.center,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                    Text("Already have an Acoount? ",
-                      style: TextStyle(fontSize: 20, color: Colors.grey)),
-                    GestureDetector(onTap: (){Get.to(SignInPage());},
-                      child: Text("Login ",
-                        style: TextStyle(fontSize: 20, color: Colors.green)),
-                    ),
-                  ],),
+                      Text("Already have an Acoount? ",
+                          style: TextStyle(fontSize: 20, color: Colors.grey)),
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(SignInPage());
+                        },
+                        child: Text("Login ",
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.green)),
+                      ),
+                    ],
+                  ),
                   SizedBox(
                     height: Dimension.hight10 * 2,
                   ),

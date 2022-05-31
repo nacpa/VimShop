@@ -29,8 +29,7 @@ class RecomendedFoodDetails extends StatelessWidget {
     var Product=Get.find<RecommendedProductController>().RecommendedProductList[PageId];
     Get.find<PopularProductController>().InitProduct(Product,Get.find<CartController>()) ;
 
-    return
-       Scaffold(
+    return Scaffold(
       body: CustomScrollView(
         slivers: [
         SliverAppBar(toolbarHeight: Dimension.Screenheight/10,automaticallyImplyLeading: false,
@@ -89,6 +88,8 @@ class RecomendedFoodDetails extends StatelessWidget {
         )
       ],
       ),
+
+
          bottomNavigationBar: GetBuilder<PopularProductController>(builder:(Controller) {return
            Container(margin: EdgeInsets.only(bottom: 10),
            child: Column( mainAxisAlignment: MainAxisAlignment.spaceEvenly,

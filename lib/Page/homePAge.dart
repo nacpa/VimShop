@@ -1,13 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vim_shop/Page/Acount_Page.dart';
-import 'package:vim_shop/Page/Authentication/Sign_in_Page.dart';
-import 'package:vim_shop/Page/Authentication/Signup_Page.dart';
-import 'package:vim_shop/Page/Cart.dart';
 import 'package:vim_shop/Page/MainPage.dart';
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:vim_shop/Page/Splash/SplashScreen.dart';
-import 'package:vim_shop/Weidgets/Route_helper.dart';
 import 'package:vim_shop/Weidgets/colors.dart';
 import 'package:vim_shop/fetch.dart';
 
