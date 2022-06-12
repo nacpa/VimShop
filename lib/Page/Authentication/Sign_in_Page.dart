@@ -141,17 +141,17 @@ class SignInPage extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-              child: Opacity(
-            opacity: 0.2,
-            child: Container(
-              color: Colors.orange,
-              width: double.maxFinite,
-              height: double.maxFinite,
-              child: Lottie.network(
-                  "https://assets1.lottiefiles.com/packages/lf20_snmohqxj/lottie_step2/data.json"),
-            ),
-          )),
+          // Positioned(
+          //     child: Opacity(
+          //   opacity: 0.2,
+          //   child: Container(
+          //     color: Colors.orange,
+          //     width: double.maxFinite,
+          //     height: double.maxFinite,
+          //     child: Lottie.network(
+          //         "https://assets1.lottiefiles.com/packages/lf20_snmohqxj/lottie_step2/data.json"),
+          //   ),
+          // )),
         ],
       ),
     );

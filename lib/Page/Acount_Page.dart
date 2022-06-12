@@ -43,14 +43,9 @@ class Acount_Page extends StatelessWidget {
                   children: [
                     InfoContainer(
                         IconId: Icons.person,
-                        Info: "NAchiketa Pandey",
-                        IconColor: Colors.deepOrange,
-                        TEXTColor: Colors.black),
-                    InfoContainer(
-                        IconId: Icons.person,
                         Info: _auth.currentUser!.displayName.toString(),
                         IconColor: Colors.deepOrange,
-                        TEXTColor: Colors.black),
+                        TEXTColor: Colors.blue),
                     InfoContainer(
                         IconId: Icons.email,
                         Info: _auth.currentUser!.email.toString(),
@@ -58,10 +53,10 @@ class Acount_Page extends StatelessWidget {
                         TEXTColor: Colors.black),
                     InfoContainer(
                         IconId: Icons.phone_android_outlined,
-                        Info: _auth.currentUser!.phoneNumber.toString() ??
-                            "add Phone No",
+                        Info: _auth.currentUser!.phoneNumber ??
+                            "Phone No not Added",
                         IconColor: Colors.blueGrey,
-                        TEXTColor: Colors.black),
+                        TEXTColor: Colors.red),
                     GestureDetector(
                         onTap: () {
                           Get.to(Adresspage());
@@ -70,7 +65,7 @@ class Acount_Page extends StatelessWidget {
                             IconId: Icons.location_city,
                             Info: "Select Addres",
                             IconColor: Colors.lightBlueAccent,
-                            TEXTColor: Colors.black)),
+                            TEXTColor: Colors.greenAccent)),
                     GestureDetector(
                       onTap: () {
                         _auth.signOut();
@@ -80,7 +75,7 @@ class Acount_Page extends StatelessWidget {
                           IconId: Icons.logout_outlined,
                           Info: "LOGOUT",
                           IconColor: Colors.red,
-                          TEXTColor: Colors.black),
+                          TEXTColor: Colors.red.shade900),
                     ),
                   ],
                 ),

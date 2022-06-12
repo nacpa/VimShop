@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ import 'package:vim_shop/Weidgets/Dimensions.dart';
 
 import '../../Controller/Popular_product_controller.dart';
 import '../../Controller/Recommended_product_Comtroller.dart';
+import '../../Weidgets/Route_helper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -40,8 +42,15 @@ class _SplashScreenState extends State<SplashScreen>
         vsync: this, duration: Duration(seconds: 3, milliseconds: 500))
       ..forward();
     animation = CurvedAnimation(parent: controller, curve: Curves.bounceInOut);
-    Timer(Duration(seconds: 3),
-        () => Get.off(SignInPage(), transition: Transition.cupertino));
+    Timer(Duration(seconds: 3), () {
+      FirebaseAuth.instance.authStateChanges().listen((User? user) {
+        if (user == null) {
+          Get.off(SignInPage(), transition: Transition.cupertino);
+        } else {
+          Get.offNamed(RouteHelper.initial);
+        }
+      });
+    });
   }
 
   @override
