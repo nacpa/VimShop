@@ -74,7 +74,7 @@ class Products_Models {
     location = json['location'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    typeId = json['type_id'];
+    typeId = json['type_id'] ;
   }
 
   Map<String, dynamic> toJson() {
